@@ -11,7 +11,7 @@
 
 ## Contributing
 
-1. Fork the repository i.e. `git clone git@github.com:OpenISDM/IES_revit_plugin.git`
+1. Fork the repository
 2. Create a feature branch: `git checkout -b my-new-feature`
 3. Commit your changes: `git commit -am 'Added some feature'`
 4. Push to branch: `git push origin my-new-feature`
