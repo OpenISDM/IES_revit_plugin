@@ -1,0 +1,2219 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ImportExport</name>
+    </assembly>
+    <members>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.Command">
+            <summary>
+            To add an external command to Autodesk Revit 
+            the developer should implement an object that 
+            supports the IExternalCommand interface.
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.Command.Execute(Autodesk.Revit.UI.ExternalCommandData,System.String@,Autodesk.Revit.DB.ElementSet)">
+            <summary>
+            Implement this method as an external command for Revit.
+            </summary>
+            <param name="commandData">An object that is passed to the external application 
+            which contains data related to the command, 
+            such as the application object and active view.</param>
+            <param name="message">A message that can be set by the external application 
+            which will be displayed if a failure or cancellation is returned by 
+            the external command.</param>
+            <param name="elements">A set of elements to which the external application 
+            can add elements that are to be highlighted in case of failure or cancellation.</param>
+            <returns>Return the status of the external command. 
+            A result of Succeeded means that the API external method functioned as expected. 
+            Cancelled can be used to signify that the user cancelled the external operation 
+            at some point. Failure should be returned if the application is unable to proceed with 
+            the operation.</returns>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ExportDataWithViews">
+            <summary>
+            Base data class which stores the common information for exporting view related format
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ExportData">
+            <summary>
+            Base data class which stores the basic information for export
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportData.m_commandData">
+            <summary>
+            Revit command data
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportData.m_activeDoc">
+            <summary>
+            Active document
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportData.m_exportFileName">
+            <summary>
+            File Name or Prefix to be used
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportData.m_exportFolder">
+            <summary>
+            Directory to store the exported file
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportData.m_activeDocName">
+            <summary>
+            ActiveDocument Name
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportData.m_activeViewName">
+            <summary>
+            ActiveView Name
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportData.m_is3DView">
+            <summary>
+            Whether current view is a 3D view
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportData.m_exportFormat">
+            <summary>
+            The format to be exported
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportData.m_filter">
+            <summary>
+            The filter which will be used in file saving dialog
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportData.m_title">
+            <summary>
+            The title of exporting dialog
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportData.#ctor(Autodesk.Revit.UI.ExternalCommandData,Revit.SDK.Samples.ImportExport.CS.ExportFormat)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="commandData">Revit command data</param>
+            <param name="exportFormat">Format to export</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportData.Initialize">
+            <summary>
+            Initialize the variables
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportData.getExtension">
+            <summary>
+            Get the extension of the file to export
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportData.Export">
+            <summary>
+            Collect the parameters and export
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportData.CommandData">
+            <summary>
+            Revit command data
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportData.ActiveDocument">
+            <summary>
+            ActiveDocument
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportData.ExportFileName">
+            <summary>
+            File Name or Prefix to be used
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportData.ExportFolder">
+            <summary>
+            Directory to store the exported file
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportData.ActiveDocName">
+            <summary>
+            ActiveDocument Name
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportData.ActiveViewName">
+            <summary>
+            ActiveView Name
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportData.Is3DView">
+            <summary>
+            Whether current view is a 3D view
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportData.ExportFormat">
+            <summary>
+            The format to be exported
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportData.Filter">
+            <summary>
+            The filter which will be used in file saving dialog
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportData.Title">
+            <summary>
+            The title of exporting dialog
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDataWithViews.m_selectViewsData">
+            <summary>
+            Data class SelectViewsData
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDataWithViews.m_exportViews">
+            <summary>
+            Views to export
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDataWithViews.m_currentViewOnly">
+            <summary>
+            Whether to export current view only
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDataWithViews.#ctor(Autodesk.Revit.UI.ExternalCommandData,Revit.SDK.Samples.ImportExport.CS.ExportFormat)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="commandData">Revit command data</param>
+            <param name="exportFormat">Format to export</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDataWithViews.Initialize">
+            <summary>
+            Initialize the variables
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDataWithViews.SelectViewsData">
+            <summary>
+            Data class SelectViewsData
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDataWithViews.ExportViews">
+            <summary>
+            Views to export
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDataWithViews.CurrentViewOnly">
+            <summary>
+            Whether to export current view only
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportIMGData.m_imageType">
+            <summary>
+            String list of image type
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportIMGData.#ctor(Autodesk.Revit.UI.ExternalCommandData,Revit.SDK.Samples.ImportExport.CS.ExportFormat)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="commandData">Revit command data</param>
+            <param name="exportFormat">Format to export</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportIMGData.Initialize">
+            <summary>
+            Initialize the variables
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportIMGData.Export">
+            <summary>
+            Collect the parameters and export
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ExportIMGOptionsForm">
+            <summary>
+            Provide a dialog which provides the options of lower priority information for exporting image
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportIMGOptionsForm.m_exportOptions">
+            <summary>
+            Data class object of m_exportOptions
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportIMGOptionsForm.m_exportData">
+            <summary>
+            Data class object of ExportDataWithViews
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportIMGOptionsForm.#ctor(Revit.SDK.Samples.ImportExport.CS.ExportDataWithViews)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="exportData">Data class object</param>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportIMGOptionsForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportIMGOptionsForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportIMGOptionsForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ExportSATData">
+            <summary>
+            Data class which stores the main information for exporting dxf format
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportSATData.m_fileVersion">
+            <summary>
+            String list of AutoCAD versions
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportSATData.m_enumFileVersion">
+            <summary>
+            List of Autodesk.Revit.DB.ACADVersion defined in Revit
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportSATData.m_exportFileVersion">
+            <summary>
+            File version option to export
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportSATData.#ctor(Autodesk.Revit.UI.ExternalCommandData,Revit.SDK.Samples.ImportExport.CS.ExportFormat)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="commandData">Revit command data</param>
+            <param name="exportFormat">Format to export</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportSATData.Initialize">
+            <summary>
+            Initialize the variables
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportSATData.Export">
+            <summary>
+            Collect the parameters and export
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportSATData.FileVersion">
+            <summary>
+            String collection of AutoCAD versions
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportSATData.EnumFileVersion">
+            <summary>
+            Collection of Autodesk.Revit.DB.ACADVersion defined in Revit
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportSATData.ExportFileVersion">
+            <summary>
+            File version option to export
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ExportDXFData">
+            <summary>
+            Data class which stores the main information for exporting dxf format
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDXFData.m_exportOptionsData">
+            <summary>
+            Data class ExportOptionsData
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDXFData.m_fileVersion">
+            <summary>
+            String list of AutoCAD versions
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDXFData.m_enumFileVersion">
+            <summary>
+            List of Autodesk.Revit.DB.ACADVersion defined in Revit
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDXFData.m_exportFileVersion">
+            <summary>
+            File version option to export
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDXFData.#ctor(Autodesk.Revit.UI.ExternalCommandData,Revit.SDK.Samples.ImportExport.CS.ExportFormat)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="commandData">Revit command data</param>
+            <param name="exportFormat">Format to export</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDXFData.Initialize">
+            <summary>
+            Initialize the variables
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDXFData.Export">
+            <summary>
+            Collect the parameters and export
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDXFData.ExportOptionsData">
+            <summary>
+            Data class ExportOptionsData
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDXFData.FileVersion">
+            <summary>
+            String collection of AutoCAD versions
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDXFData.EnumFileVersion">
+            <summary>
+            Collection of Autodesk.Revit.DB.ACADVersion defined in Revit
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDXFData.ExportFileVersion">
+            <summary>
+            File version option to export
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData">
+            <summary>
+            Data class which stores the main information for exporting Civil3D format
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.m_application">
+            <summary>
+            Revit application
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.m_document">
+            <summary>
+            Revit document
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.m_view3D">
+            <summary>
+            3D view to be exported
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.m_view3DList">
+            <summary>
+            List of 3D view in the document
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.m_grossAreaPlan">
+            <summary>
+            The view plan on which all the areas will be exported
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.m_grossAreaPlanList">
+            <summary>
+            List of gross area plans in the document
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.m_propertyLine">
+            <summary>
+            The optional property line to be exported
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.m_propertyLineList">
+            <summary>
+            List of property lines in the document
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.m_PropertyLineOffset">
+            <summary>
+            Property line offset
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.m_dataValidated">
+            <summary>
+            Whether all data are validated for export
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.m_dut">
+            <summary>
+            Current display unit type
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.#ctor(Autodesk.Revit.UI.ExternalCommandData,Revit.SDK.Samples.ImportExport.CS.ExportFormat)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="commandData">Revit command data</param>
+            <param name="exportFormat">Format to export</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.Initialize">
+            <summary>
+            Initialize the variables
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.GetLengthUnitType(Autodesk.Revit.DB.Document)">
+            <summary>
+            Get current length display unit type
+            </summary>
+            <param name="document">Revit's document</param>
+            <returns>Current length display unit type</returns>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.Get3DViews">
+            <summary>
+            Get all 3D views in current document
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.GetPropertyLines">
+            <summary>
+            Get all property lines in current document
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.GetGrossAreaPlans">
+            <summary>
+            Get all gross area plans in current document
+            </summary>
+            <returns>If the document does not contain any gross area plan, return false</returns>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.Export">
+            <summary>
+            Collect the parameters and export
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.View3D">
+            <summary>
+            3D view to be exported
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.View3DList">
+            <summary>
+            List of 3D view in the document
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.GrossAreaPlan">
+            <summary>
+            The view plan on which all the areas will be exported
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.GrossAreaPlanList">
+            <summary>
+            The view plan on which all the areas will be exported
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.PropertyLine">
+            <summary>
+            The optional property line to be exported
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.PropertyLineList">
+            <summary>
+            List of property lines in the document
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.Dut">
+            <summary>
+            Current display unit type
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.PropertyLineOffset">
+            <summary>
+            Property line offset
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData.DataValidated">
+            <summary>
+            Whether all data are validated for export
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DForm">
+            <summary>
+            Provide a dialog which provides the options for exporting Civil3D format
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DForm.m_data">
+            <summary>
+            data class
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DForm.#ctor(Revit.SDK.Samples.ImportExport.CS.ExportCivil3DData)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="exportCivil3DData"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DForm.InitializeControl">
+            <summary>
+            Initialize values and status of controls
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DForm.buttonBrowser_Click(System.Object,System.EventArgs)">
+            <summary>
+            Show save dialog when button Browser is clicked
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DForm.ValidateExportFolder">
+            <summary>
+            Check whether the folder specified is valid
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DForm.buttonOK_Click(System.Object,System.EventArgs)">
+            <summary>
+            OK button click event
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportCivil3DForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ExportDGNData">
+            <summary>
+            Data class which stores the main information for exporting dgn format
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDGNData.m_layerMapping">
+            <summary>
+            String list of Layer Settings used in UI
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDGNData.m_enumLayerMapping">
+            <summary>
+            String list of layer settings values defined in Revit 
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDGNData.m_exportFileVersions">
+            <summary>
+            String list of exported format version defined in Revit 
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDGNData.m_exportLayerMapping">
+            <summary>
+            Layer setting option to export
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDGNData.m_exportFileVersion">
+            <summary>
+            Exported format version
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDGNData.m_hideScopeBox">
+            <summary>
+            Whether to hide scope box
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDGNData.m_hideUnreferenceViewTags">
+            <summary>
+            Whether to hide unreference view tags
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDGNData.m_hideReferencePlane">
+            <summary>
+            Whether to hide reference plane
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDGNData.#ctor(Autodesk.Revit.UI.ExternalCommandData,Revit.SDK.Samples.ImportExport.CS.ExportFormat)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="commandData">Revit command data</param>
+            <param name="exportFormat">Format to export</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDGNData.Initialize">
+            <summary>
+            Initialize the variables
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDGNData.Export">
+            <summary>
+            Collect the parameters and export
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDGNData.ExportLayerMapping">
+            <summary>
+            Layer setting option to export
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDGNData.HideScopeBox">
+            <summary>
+            Whether to hide scope box
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDGNData.HideUnreferenceViewTags">
+            <summary>
+            Whether to hide unreference view tags
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDGNData.HideReferencePlane">
+            <summary>
+            Whether to hide reference plane
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDGNData.ExportFileVersion">
+            <summary>
+            Exported format version
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDGNData.LayerMapping">
+            <summary>
+            String collection of Layer Settings used in UI
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDGNData.ExportFileVersions">
+            <summary>
+            String list of exported format version defined in Revit 
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDGNData.EnumLayerMapping">
+            <summary>
+            String collection of layer settings values defined in Revit  
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ExportDGNOptionsForm">
+            <summary>
+            Provide a dialog which provides the options for exporting dgn format
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDGNOptionsForm.m_data">
+            <summary>
+            data class
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDGNOptionsForm.#ctor(Revit.SDK.Samples.ImportExport.CS.ExportDGNData)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="data">Data class object</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDGNOptionsForm.InitializeControl">
+            <summary>
+            Initialize values and status of controls
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDGNOptionsForm.buttonOK_Click(System.Object,System.EventArgs)">
+            <summary>
+            OK button click event
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDGNOptionsForm.button2DSeedFile_Click(System.Object,System.EventArgs)">
+            <summary>
+            button2DSeedFile click event
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDGNOptionsForm.ShowOpenDialog(System.String@)">
+            <summary>
+            Show open file dialog
+            </summary>
+            <param name="returnFileName"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDGNOptionsForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDGNOptionsForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDGNOptionsForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ExportFBXData">
+            <summary>
+            Data class which stores the information for exporting fbx format
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportFBXData.#ctor(Autodesk.Revit.UI.ExternalCommandData,Revit.SDK.Samples.ImportExport.CS.ExportFormat)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="commandData">Revit command data</param>
+            <param name="exportFormat">Format to export</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportFBXData.Export">
+            <summary>
+            Export FBX format
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ExportGBXMLData">
+            <summary>
+            Data class which stores the information for exporting gbxml format
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportGBXMLData.#ctor(Autodesk.Revit.UI.ExternalCommandData,Revit.SDK.Samples.ImportExport.CS.ExportFormat)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="commandData">Revit command data</param>
+            <param name="exportFormat">Format to export</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportGBXMLData.Export">
+            <summary>
+            Export GBXML format
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ExportDWFOptionForm">
+            <summary>
+            Data class which stores information of lower priority for exporting DWF(x) format.
+            </summary>
+            <summary>
+            Provide a dialog which provides the options of lower priority information 
+            for export DWF format
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDWFOptionForm.m_data">
+            <summary>
+            ExportDWFData object
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDWFOptionForm.#ctor(Revit.SDK.Samples.ImportExport.CS.ExportDWFData)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="data">Data class object</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDWFOptionForm.Initialize">
+            <summary>
+            Initialize controls
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDWFOptionForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDWFOptionForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDWFOptionForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ExportDWFData">
+            <summary>
+            Data class which stores the information for exporting 2D DWF format
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDWFData.m_exportObjectData">
+            <summary>
+            Whether export object data
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDWFData.m_exportAreas">
+            <summary>
+            Whether export areas
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDWFData.m_exportMergeFiles">
+            <summary>
+            Whether to create separate files for each view/sheet
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDWFData.m_ImageQualities">
+            <summary>
+            List of image quality for DWF export
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDWFData.m_dwfImageQuality">
+            <summary>
+            Selected image quality for DWF export
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDWFData.m_dwfImageFormat">
+            <summary>
+            Selected image format for DWF export
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDWFData.#ctor(Autodesk.Revit.UI.ExternalCommandData,Revit.SDK.Samples.ImportExport.CS.ExportFormat)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="commandData">Revit command data</param>
+            <param name="exportFormat">Format to export</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDWFData.Initialize">
+            <summary>
+            Initialize the variables
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDWFData.Export">
+            <summary>
+            Collect the parameters and export
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDWFData.ExportObjectData">
+            <summary>
+            Whether export object data
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDWFData.ExportMergeFiles">
+            <summary>
+            Whether to create separate files for each view/sheet
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDWFData.ExportAreas">
+            <summary>
+            Whether export areas
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDWFData.DwfImageFormat">
+            <summary>
+            Selected image format for DWF export
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDWFData.DwfImageQuality">
+            <summary>
+            Selected image quality for DWF export
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDWFData.ImageQualities">
+            <summary>
+            List of image quality for DWF export
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ExportDWGData">
+            <summary>
+            Data class which stores the main information for exporting dwg format
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDWGData.m_exportOptionsData">
+            <summary>
+            Data class ExportOptionsData
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDWGData.m_fileVersion">
+            <summary>
+            String list of AutoCAD versions
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDWGData.m_enumFileVersion">
+            <summary>
+            List of Autodesk.Revit.DB.ACADVersion defined in Revit
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportDWGData.m_exportFileVersion">
+            <summary>
+            File version option to export
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDWGData.#ctor(Autodesk.Revit.UI.ExternalCommandData,Revit.SDK.Samples.ImportExport.CS.ExportFormat)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="commandData">Revit command data</param>
+            <param name="exportFormat">Format to export</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDWGData.Initialize">
+            <summary>
+            Initialize the variables
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportDWGData.Export">
+            <summary>
+            Collect the parameters and export
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDWGData.ExportOptionsData">
+            <summary>
+            Data class ExportOptionsData
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDWGData.FileVersion">
+            <summary>
+            String collection of AutoCAD versions
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDWGData.EnumFileVersion">
+            <summary>
+            Collection of Autodesk.Revit.DB.ACADVersion defined in Revit
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportDWGData.ExportFileVersion">
+            <summary>
+            File version option to export
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData">
+            <summary>
+            Data class which stores lower priority information for exporting dwg or dxf format
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.m_layersAndProperties">
+            <summary>
+            String list of Layers and properties used in UI
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.m_enumLayersAndProperties">
+            <summary>
+            List of Autodesk.Revit.DB.PropOverrideMode
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.m_layerMapping">
+            <summary>
+            String list of Layer Settings used in UI
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.m_enumLayerMapping">
+            <summary>
+            String list of layer settings values defined in Revit 
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.m_exportLayerMapping">
+            <summary>
+            Layer setting option to export
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.m_lineScaling">
+            <summary>
+            String list of Linetype scaling used in UI
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.m_exportLayersAndProperties">
+            <summary>
+            PropOverrideMode Option to export
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.m_enumLineScaling">
+            <summary>
+            List of Autodesk.Revit.DB.LineScaling defined in Revit
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.m_exportLineScaling">
+            <summary>
+            Line scaling option to export
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.m_coorSystem">
+            <summary>
+            String list of Coordinate system basis
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.m_enumCoorSystem">
+            <summary>
+            List of values whether to use shared coordinate system
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.m_exportCoorSystem">
+            <summary>
+            Coordinate system basis option to export
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.m_units">
+            <summary>
+            String list of DWG or DXF unit
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.m_enumUnits">
+            <summary>
+            List of Autodesk.Revit.DB.ExportUnit values defined in Revit
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.m_exportUnit">
+            <summary>
+            Export unit option to export
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.m_solids">
+            <summary>
+            String list of solid used in UI
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.m_enumSolids">
+            <summary>
+            List of Autodesk.Revit.DB.SolidGeometry defined in Revit
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.m_exportSolid">
+            <summary>
+            Solid geometry option to export
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.m_exportMergeFiles">
+            <summary>
+            Whether to create separate files for each view/sheet
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.Initialize">
+            <summary>
+            Initialize values
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.LayersAndProperties">
+            <summary>
+            String collection of Layers and properties used in UI
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.EnumLayersAndProperties">
+            <summary>
+            Collection of Autodesk.Revit.DB.PropOverrideMode
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.ExportLayersAndProperties">
+            <summary>
+            PropOverrideMode Option to export
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.LayerMapping">
+            <summary>
+            String collection of Layer Settings used in UI
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.EnumLayerMapping">
+            <summary>
+            String collection of layer settings values defined in Revit  
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.ExportLayerMapping">
+            <summary>
+            Layer setting option to export
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.LineScaling">
+            <summary>
+            String collection of Linetype scaling used in UI
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.EnumLineScaling">
+            <summary>
+            Collection of Autodesk.Revit.DB.LineScaling defined in Revit
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.ExportLineScaling">
+            <summary>
+            Line scaling option to export
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.CoorSystem">
+            <summary>
+            String collection of Coordinate system basis
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.EnumCoorSystem">
+            <summary>
+            Collection of values whether to use shared coordinate system
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.ExportCoorSystem">
+            <summary>
+            Coordinate system basis option to export
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.Units">
+            <summary>
+            String collection of DWG unit
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.EnumUnits">
+            <summary>
+            Collection of Autodesk.Revit.DB.ExportUnit values defined in Revit
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.ExportUnit">
+            <summary>
+            Export unit option to export
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.Solids">
+            <summary>
+            String collection of solid used in UI
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.EnumSolids">
+            <summary>
+            Collection of Autodesk.Revit.DB.SolidGeometry defined in Revit
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.ExportSolid">
+            <summary>
+            Property of solid geometry option to export
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.ExportAreas">
+            <summary>
+            Export rooms and areas as polylines
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData.ExportMergeFiles">
+            <summary>
+            Whether to create separate files for each view/sheet
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsForm">
+            <summary>
+            Provide a dialog which provides the options of lower priority information for exporting dwg format
+            </summary>
+            <summary>
+            Provide a dialog which provides the options of lower priority information for export
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsForm.m_exportOptionsData">
+            <summary>
+            data class
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsForm.m_contain3DView">
+            <summary>
+            Whether export the current view only
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsForm.#ctor(Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsData,System.Boolean,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="exportOptionsData">Data class object</param>
+            <param name="contain3DView">If views to export contain 3D views</param>
+            <param name="exportFormat">export format</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsForm.InitializeControl">
+            <summary>
+            Initialize values and status of controls
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsForm.buttonOK_Click(System.Object,System.EventArgs)">
+            <summary>
+            Transfer information back to ExportOptionData class
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportBaseOptionsForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ImportGBXMLData">
+            <summary>
+            Data class which stores the information for importing GBXML format
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ImportData">
+            <summary>
+            Base data class which stores the basic information for import
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportData.m_commandData">
+            <summary>
+            Revit command data
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportData.m_activeDoc">
+            <summary>
+            Active document
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportData.m_importFolder">
+            <summary>
+            Directory where to import the file
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportData.m_importFileFullName">
+            <summary>
+            File Name or Prefix to be used
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportData.m_importFormat">
+            <summary>
+            The format to be exported
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportData.m_filter">
+            <summary>
+            The filter which will be used in file saving dialog
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportData.m_title">
+            <summary>
+            The title of importing dialog
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportData.#ctor(Autodesk.Revit.UI.ExternalCommandData,Revit.SDK.Samples.ImportExport.CS.ImportFormat)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="commandData">Revit command data</param>
+            <param name="importFormat">Format to import</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportData.Initialize">
+            <summary>
+            Initialize the variables
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportData.Import">
+            <summary>
+            Collect the parameters and import
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportData.CommandData">
+            <summary>
+            Revit command data
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportData.ImportFileFullName">
+            <summary>
+            File Name or Prefix to be used
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportData.ImportFormat">
+            <summary>
+            The format to be imported
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportData.Filter">
+            <summary>
+            The filter which will be used in file saving dialog
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportData.ImportFolder">
+            <summary>
+            Directory where to import the file
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportData.Title">
+            <summary>
+            The title of importing dialog
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportGBXMLData.#ctor(Autodesk.Revit.UI.ExternalCommandData,Revit.SDK.Samples.ImportExport.CS.ImportFormat)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="commandData">Revit command data</param>
+            <param name="importFormat">Format to import</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportGBXMLData.Import">
+            <summary>
+            Collect the parameters and export
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ImportImageData">
+            <summary>
+            Data class which stores the information for importing image format
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportImageData.#ctor(Autodesk.Revit.UI.ExternalCommandData,Revit.SDK.Samples.ImportExport.CS.ImportFormat)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="commandData">Revit command data</param>
+            <param name="importFormat">Format to import</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportImageData.Import">
+            <summary>
+            Collect the parameters and export
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ImportDWGData">
+            <summary>
+            Data class which stores the information for importing dwg format
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.m_importThisViewOnly">
+            <summary>
+            ThisViewOnly
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.m_views">
+            <summary>
+            All views
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.m_importView">
+            <summary>
+            Import view
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.m_colorMode">
+            <summary>
+            ColorMode for import
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.m_enumColorMode">
+            <summary>
+            All available import color modes
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.m_importColorMode">
+            <summary>
+            Import color mode
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.m_importCustomScale">
+            <summary>
+            Custom scale for import
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.m_importOrientToView">
+            <summary>
+            OrientToView
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.m_placement">
+            <summary>
+            Placement
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.m_enumPlacement">
+            <summary>
+            All placement for layers to be imported
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.m_importPlacement">
+            <summary>
+            Placement for import
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.m_unit">
+            <summary>
+            All units for layer to be imported
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.m_enumUnit">
+            <summary>
+            All import unit for import layers
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.m_importUnit">
+            <summary>
+            Import unit
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.m_visibleLayersOnly">
+            <summary>
+            All available layers only 
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.m_enumVisibleLayersOnly">
+            <summary>
+            All boolean values for available visible layers
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.m_importVisibleLayersOnly">
+            <summary>
+            Whether import visible layer only
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.m_is3DView">
+            <summary>
+            Whether active view is 3D
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.#ctor(Autodesk.Revit.UI.ExternalCommandData,Revit.SDK.Samples.ImportExport.CS.ImportFormat)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="commandData">Revit command data</param>
+            <param name="format">Format to import</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.Import">
+            <summary>
+            Collect the parameters and export
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.Initialize">
+            <summary>
+            Initialize the variables
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.GetViews">
+            <summary>
+            Get all the views to be displayed
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.ImportThisViewOnly">
+            <summary>
+            Get or set whether import this view only
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.Views">
+            <summary>
+            all views for import
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.ImportView">
+            <summary>
+            Import view
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.ColorMode">
+            <summary>
+            All available color modes for import
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.EnumColorMode">
+            <summary>
+            All available import color modes
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.ImportColorMode">
+            <summary>
+            Import color mode
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.ImportCustomScale">
+            <summary>
+            Custom scale for import
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.ImportOrientToView">
+            <summary>
+            Whether import orient to view
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.Placement">
+            <summary>
+            All placement for layers to be imported
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.EnumPlacement">
+            <summary>
+            All ImportPlacements for all layers to be imported
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.ImportPlacement">
+            <summary>
+            Import placement for import
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.Unit">
+            <summary>
+            All units for layer to be imported
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.EnumUnit">
+            <summary>
+            All import unit for import layers
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.ImportUnit">
+            <summary>
+            Get or set import unit
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.VisibleLayersOnly">
+            <summary>
+            All available layers only 
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.EnumVisibleLayersOnly">
+            <summary>
+            All boolean values for available visible layers
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.ImportVisibleLayersOnly">
+            <summary>
+            Whether import visible layer only
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.ImportDWGData.Is3DView">
+            <summary>
+            Whether active view is 3D
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ImportDWGForm">
+            <summary>
+            It contains a dialog which provides the options of importing dwg format
+            </summary>
+            <summary>
+            It contains a dialog which provides the options of import
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportDWGForm.m_importData">
+            <summary>
+            Data class
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportDWGForm.#ctor(Revit.SDK.Samples.ImportExport.CS.ImportDWGData)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="importData"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportDWGForm.checkBoxCurrentViewOnly_CheckedChanged(System.Object,System.EventArgs)">
+            <summary>
+            Change the status of checkBoxOrient2View and comboBoxLevel according to the selection
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportDWGForm.InitializeControls">
+            <summary>
+            Initialize values and status of controls
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportDWGForm.buttonBrowser_Click(System.Object,System.EventArgs)">
+            <summary>
+            Specify a file to export from
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportDWGForm.comboBoxUnits_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Change the status of textBoxScale according to the selection
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportDWGForm.buttonOpen_Click(System.Object,System.EventArgs)">
+            <summary>
+            Transfer information back to ImportData class and execute IMPORT operation
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportDWGForm.ValidateFileName">
+            <summary>
+            Validate the file to import
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportDWGForm.SetImportColorMode">
+            <summary>
+            Set the value of color mode
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportDWGForm.SetImportPlacement">
+            <summary>
+            Set the value of placement
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportDWGForm.SetImportViewsRelated">
+            <summary>
+            Set the value of ImportThisViewOnly, ImportOrientToView, ImportView
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportDWGForm.SetImportLayers">
+            <summary>
+            Set the value of ImportVisibleLayersOnly
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportDWGForm.SetImportUnitsAndScaling">
+            <summary>
+            Set the value of unit, scaling
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportDWGForm.textBoxScale_KeyPress(System.Object,System.Windows.Forms.KeyPressEventArgs)">
+            <summary>
+            Only numbers and '.' permitted
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportDWGForm.textBoxScale_TextChanged(System.Object,System.EventArgs)">
+            <summary>
+            Only one '.' permitted
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportDWGForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportDWGForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportDWGForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ExportWithViewsForm">
+            <summary>
+            It contains a dialog which provides the options of common information for export
+            </summary>
+            <summary>
+            It contains a dialog which provides the options of common information for export
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportWithViewsForm.#ctor(Revit.SDK.Samples.ImportExport.CS.ExportDataWithViews)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportWithViewsForm.InitializeControls">
+            <summary>
+            Initialize values and status of controls
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportWithViewsForm.buttonOptions_Click(System.Object,System.EventArgs)">
+            <summary>
+            Provide the export option dialog
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportWithViewsForm.buttonSelectViews_Click(System.Object,System.EventArgs)">
+            <summary>
+            Provide the views selecting dialog
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportWithViewsForm.buttonBrowser_Click(System.Object,System.EventArgs)">
+            <summary>
+            Specify a file to export into
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportWithViewsForm.radioButtonSelectView_CheckedChanged(System.Object,System.EventArgs)">
+            <summary>
+            Change the status of buttonSelectViews according to the selection
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportWithViewsForm.buttonSave_Click(System.Object,System.EventArgs)">
+            <summary>
+            Transfer information back to ExportData class and execute EXPORT operation
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportWithViewsForm.ValidateExportFolder">
+            <summary>
+            Check whether the folder specified is valid
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportWithViewsForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportWithViewsForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ExportWithViewsForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ImportInventorData">
+            <summary>
+            Data class which stores the information for importing image format
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportInventorData.#ctor(Autodesk.Revit.UI.ExternalCommandData,Revit.SDK.Samples.ImportExport.CS.ImportFormat)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="commandData">Revit command data</param>
+            <param name="importFormat">Format to import</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.ImportInventorData.Import">
+            <summary>
+            Collect the parameters and import
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ExportFormat">
+            <summary>
+            Export formats
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportFormat.DWG">
+            <summary>
+            DWG format
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportFormat.DXF">
+            <summary>
+            DXF format
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportFormat.SAT">
+            <summary>
+            SAT format
+            </summary> 
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportFormat.DWF">
+            <summary>
+            DWF format
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportFormat.DWFx">
+            <summary>
+            DWFx format
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportFormat.GBXML">
+            <summary>
+            GBXML format
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportFormat.FBX">
+            <summary>
+            FBX format
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportFormat.DGN">
+            <summary>
+            DGN format
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportFormat.Civil3D">
+            <summary>
+            Civil3D format
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ExportFormat.Image">
+            <summary>
+            IMG format
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.ImportFormat">
+            <summary>
+            Import formats
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportFormat.DWG">
+            <summary>
+            DWF format
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportFormat.IMAGE">
+            <summary>
+            IMAGE format
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportFormat.GBXML">
+            <summary>
+            GBXML format
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.ImportFormat.Inventor">
+            <summary>
+            Inventor format
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.MainData">
+            <summary>
+            Data class contains the external command data.
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.MainData.#ctor(Autodesk.Revit.UI.ExternalCommandData)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="commandData">Revit command data</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.MainData.GetSelectedExportFormat(System.String)">
+            <summary>
+            Get the format to export
+            </summary>
+            <param name="selectedFormat">Selected format in format selecting dialog</param>
+            <returns>The format to export</returns>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.MainData.Export(System.String)">
+            <summary>
+            Export according to selected format
+            </summary>
+            <param name="selectedFormat">Selected format</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.MainData.Export(Revit.SDK.Samples.ImportExport.CS.ExportData)">
+            <summary>
+            Export
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.MainData.ShowSaveDialog(Revit.SDK.Samples.ImportExport.CS.ExportData,System.String@,System.Int32@)">
+            <summary>
+            Show Save dialog
+            </summary>
+            <param name="exportData">Data to export</param>
+            <param name="returnFileName">File name will be returned</param>
+            <param name="filterIndex">Selected filter index will be returned</param>
+            <returns></returns>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.MainData.GetSelectedImportFormat(System.String)">
+            <summary>
+            Get the format to import
+            </summary>
+            <param name="selectedFormat">Selected format in format selecting dialog</param>
+            <returns>The format to import</returns>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.MainData.Import(System.String)">
+            <summary>
+            Export according to selected format
+            </summary>
+            <param name="selectedFormat">Selected format</param>
+            <returns></returns>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.MainData.Import(Revit.SDK.Samples.ImportExport.CS.ImportData)">
+            <summary>
+            Import
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.MainData.ShowOpenDialog(Revit.SDK.Samples.ImportExport.CS.ImportData,System.String@)">
+            <summary>
+            Show Open File dialog
+            </summary>
+            <param name="importData">Data to import</param>
+            <param name="returnFileName">File name will be returned</param>
+            <returns>Dialog result</returns>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.MainData.CommandData">
+            <summary>
+            Revit command data
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.MainData.Is3DView">
+            <summary>
+            Whether current view is a 3D view
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.MainForm">
+            <summary>
+            Provide a dialog which lets user choose the operation(export or import)
+            </summary>
+            <summary>
+            Provide a dialog which lets user choose the operation(export or import)
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.MainForm.m_mainData">
+            <summary>
+            Data class
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.MainForm.#ctor(Revit.SDK.Samples.ImportExport.CS.MainData)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="mainData"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.MainForm.InitializeFormats">
+            <summary>
+            Append formats to be exported or imported
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.MainForm.buttonOK_Click(System.Object,System.EventArgs)">
+            <summary>
+            Show the export/import dialog
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.MainForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.MainForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.MainForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.SelectViewsData">
+            <summary>
+            Data class which stores views information for export
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.SelectViewsData.m_commandData">
+            <summary>
+            Revit command data
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.SelectViewsData.m_printableViews">
+            <summary>
+            All printable views(except sheets)
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.SelectViewsData.m_printableSheets">
+            <summary>
+            All printable sheets
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.SelectViewsData.m_selectedViews">
+            <summary>
+            All selected views in UI
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.SelectViewsData.m_contain3DView">
+            <summary>
+            Whether contain 3D view in selected views
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.SelectViewsData.#ctor(Autodesk.Revit.UI.ExternalCommandData)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="commandData"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.SelectViewsData.GetAllPrintableViews">
+            <summary>
+            Get all printable views and sheets
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.SelectViewsData.PrintableViews">
+            <summary>
+            All printable views(except sheets)
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.SelectViewsData.PrintableSheets">
+            <summary>
+            All printable sheets
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.SelectViewsData.SelectedViews">
+            <summary>
+            All selected views in UI
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.SelectViewsData.Contain3DView">
+            <summary>
+            Whether contain 3D view in selected views
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.SelectViewsForm">
+            <summary>
+            Provide a dialog which lets users choose views to export.
+            </summary>
+            <summary>
+            Provide a dialog which lets users choose views to export.
+            </summary>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.SelectViewsForm.m_selectViewsData">
+            <summary>
+            Data class
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.SelectViewsForm.#ctor(Revit.SDK.Samples.ImportExport.CS.SelectViewsData)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="selectViewsData"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.SelectViewsForm.InitializeControls">
+            <summary>
+            Initialize values and status of controls
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.SelectViewsForm.buttonCheckAll_Click(System.Object,System.EventArgs)">
+            <summary>
+            Check all items
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.SelectViewsForm.buttonCheckNone_Click(System.Object,System.EventArgs)">
+            <summary>
+            Un-check all items
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.SelectViewsForm.checkBoxSheets_CheckedChanged(System.Object,System.EventArgs)">
+            <summary>
+            Whether to show the sheets
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.SelectViewsForm.checkBoxViews_CheckedChanged(System.Object,System.EventArgs)">
+            <summary>
+            Whether to show the views (except sheets)
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.SelectViewsForm.UpdateViews">
+            <summary>
+            Update the views in the checked list box
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.SelectViewsForm.buttonOK_Click(System.Object,System.EventArgs)">
+            <summary>
+            OK button clicked
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.SelectViewsForm.GetSelectedViews">
+            <summary>
+            Transfer information back to SelectViewsData class
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:Revit.SDK.Samples.ImportExport.CS.SelectViewsForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.SelectViewsForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.SelectViewsForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.Properties.Resources.DUT_CENTIMETERS">
+            <summary>
+              Looks up a localized string similar to cm.
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.Properties.Resources.DUT_DECIMAL_FEET">
+            <summary>
+              Looks up a localized string similar to &apos;.
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.Properties.Resources.DUT_DECIMAL_INCHES">
+            <summary>
+              Looks up a localized string similar to &quot;.
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.Properties.Resources.DUT_FEET_FRACTIONAL_INCHES">
+            <summary>
+              Looks up a localized string similar to &apos;.
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.Properties.Resources.DUT_FRACTIONAL_INCHES">
+            <summary>
+              Looks up a localized string similar to &quot;.
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.Properties.Resources.DUT_METERS">
+            <summary>
+              Looks up a localized string similar to m.
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.Properties.Resources.DUT_METERS_CENTIMETERS">
+            <summary>
+              Looks up a localized string similar to m.
+            </summary>
+        </member>
+        <member name="P:Revit.SDK.Samples.ImportExport.CS.Properties.Resources.DUT_MILLIMETERS">
+            <summary>
+              Looks up a localized string similar to mm.
+            </summary>
+        </member>
+        <member name="T:Revit.SDK.Samples.ImportExport.CS.Unit">
+            <summary>
+            Provides static functions to convert unit
+            </summary>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.Unit.CovertFromAPI(Autodesk.Revit.DB.DisplayUnitType,System.Double)">
+            <summary>
+            Convert the value get from RevitAPI to the value indicated by DisplayUnitType
+            </summary>
+            <param name="to">DisplayUnitType indicates unit of target value</param>
+            <param name="value">value get from RevitAPI</param>
+            <returns>Target value</returns>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.Unit.CovertToAPI(System.Double,Autodesk.Revit.DB.DisplayUnitType)">
+            <summary>
+            Convert a value indicated by DisplayUnitType to the value used by RevitAPI
+            </summary>
+            <param name="value">Value to be converted</param>
+            <param name="from">DisplayUnitType indicates the unit of the value to be converted</param>
+            <returns>Target value</returns>
+        </member>
+        <member name="M:Revit.SDK.Samples.ImportExport.CS.Unit.ImperialDutRatio(Autodesk.Revit.DB.DisplayUnitType)">
+            <summary>
+            Get ratio between value in RevitAPI and value to display indicated by DisplayUnitType
+            </summary>
+            <param name="dut">DisplayUnitType indicates display unit type</param>
+            <returns>Ratio </returns>
+        </member>
+    </members>
+</doc>
