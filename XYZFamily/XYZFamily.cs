@@ -32,7 +32,7 @@ namespace ExtractXYZ
         {
             return ftValue * _FeetTomm;
         }
-        Result IExternalCommand.Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             UIDocument uidoc = commandData.Application.ActiveUIDocument;
             Document doc = uidoc.Document;

@@ -44,7 +44,7 @@ public class pickPoint : IExternalCommand
             FamilyInstance instance = doc.Create.NewFamilyInstance(point, symbol, StructuralType.NonStructural);
             //pickpoint method, this method can not place the beacon to the location I want, so maybe try other overloading method or use PromptForFamilyInstancePlacement method!
             trans.Commit();
-            //uidoc.PromptForFamilyInstancePlacement(symbol);//interactively method but still has bug, maybe it's because of the implementation of beacons family, ask Terence for help!
+            //uidoc.PromptForFamilyInstancePlacement(symbol);//interactive method but still has bug, maybe it's because of the implementation of beacons family, ask Terence for help!
         }
     }
     public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)

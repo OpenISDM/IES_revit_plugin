@@ -6,6 +6,5 @@
     <FullClassName>pickPoint</FullClassName>
     <Name>pickPoint</Name>
     <VendorId>openISDM</VendorId>
-    <VendorDescription>AS</VendorDescription>
   </AddIn>
 </RevitAddIns>
