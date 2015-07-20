@@ -19,7 +19,8 @@ namespace ExtractXYZ
         {
             bool ISelectionFilter.AllowElement(Element elem)
             {
-                return (elem.GetType().Equals(typeof(FamilyInstance)));//allow selecting if type = family
+                //return (elem.GetType().Equals(typeof(FamilyInstance)));//allow selecting if type = family
+                return elem.Name == "Family1";//now only Family1 is allowed to be selected, just or the family names together if we have more types of beacon.           
             }
 
             bool ISelectionFilter.AllowReference(Reference reference, XYZ position)
