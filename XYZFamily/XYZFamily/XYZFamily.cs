@@ -29,9 +29,10 @@ namespace ExtractXYZ
             }
         }
         const double _FeetTomm = 304.8; //unit conversion
-        public static double FeetTomm(double ftValue)
+        public static double unitConversion(double ftValue)//conversion function
         {
-            return ftValue * _FeetTomm;
+            //return ftValue * _FeetTomm;
+            return ftValue;       
         }
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
@@ -50,14 +51,7 @@ namespace ExtractXYZ
                         Element e = doc.GetElement(r);
                         FamilyInstance fi = e as FamilyInstance;
                         LocationPoint lp = fi.Location as LocationPoint;
-                        if (doc.DisplayUnitSystem == DisplayUnit.METRIC)
-                        {
-                            output = fi.Category.Name + "," + fi.Name + "," + fi.Id + "," + FeetTomm(lp.Point.X) + "," + FeetTomm(lp.Point.Y) + "," + FeetTomm(lp.Point.Z);
-                        }
-                        /*else if (doc.DisplayUnitSystem == DisplayUnit.IMPERIAL)
-                        {
-                            output = fi.Category.Name + "," + fi.Name + "," + fi.Id + "," + lp.Point.X + "," + lp.Point.Y + "," + lp.Point.Z;
-                        }*/
+                        output = fi.Category.Name + "," + fi.Name + "," + fi.Id + "," + unitConversion(lp.Point.X) + "," + unitConversion(lp.Point.Y) + "," + unitConversion(lp.Point.Z);
                         sw.WriteLine(output);
                     }
                     catch
