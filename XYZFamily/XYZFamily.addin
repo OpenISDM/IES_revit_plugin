@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<RevitAddIns>
+  <AddIn Type="Command">
+    <Name>Family XYZ to CSV</Name>
+    <Assembly>C:\Users\jameschi\Documents\Visual Studio 2013\Projects\XYZFamily\XYZFamily\bin\Debug\XYZFamily.dll</Assembly>
+    <AddInId>E2D9C55B-7D70-48D2-8B56-7A1E79F82116</AddInId>
+    <FullClassName>ExtractXYZ.XYZFamily</FullClassName>
+    <Text>Family XYZ to CSV</Text>
+    <Description>Retrieves a CSV file in the desktop folder with [Category],[Family Name],[ID],[X],[Y],[Z] for each family selected.</Description>
+    <VisibilityMode>AlwaysVisible</VisibilityMode>
+    <VendorId>PES_</VendorId>
+  </AddIn>
+</RevitAddIns>
