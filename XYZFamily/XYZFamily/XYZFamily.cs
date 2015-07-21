@@ -20,7 +20,7 @@ namespace ExtractXYZ
             bool ISelectionFilter.AllowElement(Element elem)
             {
                 //return (elem.GetType().Equals(typeof(FamilyInstance)));//allow selecting if type = family
-                return elem.Name == "Family1";//now only Family1 is allowed to be selected, just or the family names together if we have more types of beacon.           
+                return elem.Name == "Low Ceiling";//now only Family1 is allowed to be selected, just or the family names together if we have more types of beacon.           
             }
 
             bool ISelectionFilter.AllowReference(Reference reference, XYZ position)
@@ -28,11 +28,11 @@ namespace ExtractXYZ
                 return false;
             }
         }
-        const double _FeetTomm = 304.8; //unit conversion
+        const double _FeetTomm = 3.28084; //unit conversion
         public static double unitConversion(double ftValue)//conversion function
         {
-            //return ftValue * _FeetTomm;
-            return ftValue;       
+            return ftValue / _FeetTomm;
+            //return ftValue;       
         }
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
