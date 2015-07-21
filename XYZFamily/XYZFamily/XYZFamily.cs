@@ -8,7 +8,7 @@ using Autodesk.Revit.UI.Selection;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.Attributes;
 using System.IO;
-
+using XYZFamily;
 
 namespace ExtractXYZ
 {
@@ -28,12 +28,7 @@ namespace ExtractXYZ
                 return false;
             }
         }
-        const double _FeetTomm = 3.28084; //unit conversion
-        public static double unitConversion(double ftValue)//conversion function
-        {
-            return ftValue / _FeetTomm;
-            //return ftValue;       
-        }
+
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             UIDocument uidoc = commandData.Application.ActiveUIDocument;
@@ -41,7 +36,6 @@ namespace ExtractXYZ
             FamilyFilter ff = new FamilyFilter();
             IList<Reference> sel = uidoc.Selection.PickObjects(ObjectType.Element, ff);
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\" + doc.Title.Remove(doc.Title.Length - 4) + ".csv";//store the output data on desktop
-            string output = "";
             using (StreamWriter sw = new StreamWriter(path, false))//overwrite the original file
             {
                 foreach (Reference r in sel)
@@ -51,8 +45,8 @@ namespace ExtractXYZ
                         Element e = doc.GetElement(r);
                         FamilyInstance fi = e as FamilyInstance;
                         LocationPoint lp = fi.Location as LocationPoint;
-                        output = fi.Category.Name + "," + fi.Name + "," + fi.Id + "," + unitConversion(lp.Point.X) + "," + unitConversion(lp.Point.Y) + "," + unitConversion(lp.Point.Z);
-                        sw.WriteLine(output);
+                        Beacon beacon = new Beacon(fi, lp);
+                        sw.WriteLine(beacon.toString());
                     }
                     catch
                     {
