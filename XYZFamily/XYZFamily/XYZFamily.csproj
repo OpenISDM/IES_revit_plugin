@@ -47,6 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Beacon.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Utilities.cs" />
     <Compile Include="XYZFamily.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
