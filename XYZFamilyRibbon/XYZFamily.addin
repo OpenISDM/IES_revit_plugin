@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <RevitAddIns>
-  <AddIn Type="Command">
+  <AddIn Type="Application">
     <Name>Extract XYZ</Name>
     <Assembly>C:\Users\Public_B\Documents\GitHub\IES_revit_plugin\XYZFamily\XYZFamily\bin\Debug\XYZFamily.dll</Assembly>
-    <AddInId>E2D9C55B-7D70-48D2-8B56-7A1E79F82116</AddInId>
-    <FullClassName>ExtractXYZ.XYZFamily</FullClassName>
-    <Text>Family XYZ to CSV</Text>
+    <AddInId>A2D9C55B-7D70-48D2-8B56-7A1E79F82116</AddInId>
+    <FullClassName>ExtractXYZ.CsAddPanel</FullClassName>
     <Description>Retrieves a CSV file in the desktop folder with [Category],[Family Name],[ID],[X],[Y],[Z] for each family selected.</Description>
+    <Text>Extract XYZ</Text>
     <VisibilityMode>AlwaysVisible</VisibilityMode>
     <VendorId>PES_</VendorId>
   </AddIn>
