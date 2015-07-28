@@ -38,7 +38,13 @@ namespace ExtractXYZ
             pushButton.ToolTip = "Output the beacon's XYZ-coordinates into text file .";
 
             // b) large bitmap
-            Uri uriImage = new Uri(@"C:\Users\Public_A\Documents\GitHub\IES_revit_plugin\XYZFamilyRibbon\cartesiancoordinates.png");
+
+            string curDir = Environment.CurrentDirectory;
+            curDir += "\\cartesiancoordinates.png";
+            //TaskDialog.Show("revit", curDir);
+            //Uri uriImage = new Uri(@"C:\Users\Public_B\Documents\GitHub\IES_revit_plugin\XYZFamily\cartesiancoordinates.png");
+            Uri uriImage = new Uri(curDir);
+
             BitmapImage largeImage = new BitmapImage(uriImage);
             pushButton.LargeImage = largeImage;
 

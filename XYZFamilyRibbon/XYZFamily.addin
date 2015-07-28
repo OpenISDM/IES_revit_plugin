@@ -2,7 +2,7 @@
 <RevitAddIns>
   <AddIn Type="Application">
     <Name>Extract XYZ</Name>
-    <Assembly>C:\Users\Public_B\Documents\GitHub\IES_revit_plugin\XYZFamily\XYZFamily\bin\Debug\XYZFamily.dll</Assembly>
+    <Assembly>C:\Users\jameschi\Documents\GitHub\IES_revit_plugin\XYZFamilyRibbon\XYZFamily\bin\Debug\XYZFamily.dll</Assembly>
     <AddInId>A2D9C55B-7D70-48D2-8B56-7A1E79F82116</AddInId>
     <FullClassName>ExtractXYZ.CsAddPanel</FullClassName>
     <Description>Retrieves a CSV file in the desktop folder with [Category],[Family Name],[ID],[X],[Y],[Z] for each family selected.</Description>

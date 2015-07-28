@@ -9,9 +9,48 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.Attributes;
 using System.IO;
 using XYZFamily;
+using System.Reflection;
+using System.Windows.Media.Imaging;
+using Autodesk.Revit.DB.Architecture;
+using Autodesk.Revit.ApplicationServices;
+using Autodesk.Revit.DB.Structure;
 
 namespace ExtractXYZ
 {
+    public class CsAddPanel : IExternalApplication
+    {
+       
+        // Both OnStartup and OnShutdown must be implemented as public method
+        public Result OnStartup(UIControlledApplication application)
+        {
+            // Add a new ribbon panel
+            RibbonPanel ribbonPanel = application.CreateRibbonPanel("Extract XYZ");
+
+            // Create a push button to trigger a command add it to the ribbon panel.
+            string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
+            PushButtonData buttonData = new PushButtonData("cmdYZFamily",
+               "Extract XYZ", thisAssemblyPath, "ExtractXYZ.XYZFamily");
+
+            PushButton pushButton = ribbonPanel.AddItem(buttonData) as PushButton;
+
+            // Optionally, other properties may be assigned to the button
+            // a) tool-tip
+            pushButton.ToolTip = "Output the beacon's XYZ-coordinates into text file .";
+
+            // b) large bitmap
+            Uri uriImage = new Uri(@"C:\Users\Public_B\Documents\GitHub\IES_revit_plugin\XYZFamily\cartesiancoordinates.png");
+            BitmapImage largeImage = new BitmapImage(uriImage);
+            pushButton.LargeImage = largeImage;
+
+            return Result.Succeeded;
+        }
+
+        public Result OnShutdown(UIControlledApplication application)
+        {
+            // nothing to clean up in this simple case
+            return Result.Succeeded;
+        }
+    }
     [Transaction(TransactionMode.Manual)]
     public class XYZFamily : IExternalCommand
     {
@@ -24,7 +63,8 @@ namespace ExtractXYZ
                     return elem.Name == "Low Ceiling";
                 else if (elem.Name == "High Ceiling")
                     return elem.Name == "High Ceiling";
-                else
+                else if (elem.Name == "Beacon Std.")
+                    return true;
                     return false; //now only Family1 is allowed to be selected, just or the family names together if we have more types of beacon.           
             }
 
