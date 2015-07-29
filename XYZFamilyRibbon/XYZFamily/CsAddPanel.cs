@@ -38,7 +38,8 @@ namespace ExtractXYZ
             pushButton.ToolTip = "Output the beacon's XYZ-coordinates into text file .";
 
             // b) large bitmap
-            Uri uriImage = new Uri(@"C:\Users\Public_B\Documents\GitHub\IES_revit_plugin\XYZFamily\cartesiancoordinates.png");
+            // Unpacking button image from embedded resources
+            Uri uriImage = new Uri(@"pack://application:,,,/XYZFamily;component/Resources/cartesiancoordinates.png");
             BitmapImage largeImage = new BitmapImage(uriImage);
             pushButton.LargeImage = largeImage;
 
@@ -65,6 +66,7 @@ namespace ExtractXYZ
                     return elem.Name == "High Ceiling";
                 else if (elem.Name == "Beacon Std.")
                     return true;
+                else
                     return false; //now only Family1 is allowed to be selected, just or the family names together if we have more types of beacon.           
             }
 
