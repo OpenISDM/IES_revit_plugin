@@ -40,6 +40,7 @@ namespace ExtractXYZ
             // b) large bitmap
             // Unpacking button image from embedded resources
             Uri uriImage = new Uri(@"pack://application:,,,/XYZFamily;component/Resources/cartesiancoordinates.png");
+
             BitmapImage largeImage = new BitmapImage(uriImage);
             pushButton.LargeImage = largeImage;
 
