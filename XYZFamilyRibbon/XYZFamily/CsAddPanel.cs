@@ -19,7 +19,7 @@ namespace ExtractXYZ
 {
     public class CsAddPanel : IExternalApplication
     {
-       
+
         // Both OnStartup and OnShutdown must be implemented as public method
         public Result OnStartup(UIControlledApplication application)
         {
@@ -38,12 +38,8 @@ namespace ExtractXYZ
             pushButton.ToolTip = "Output the beacon's XYZ-coordinates into text file .";
 
             // b) large bitmap
-
-            string curDir = Environment.CurrentDirectory;
-            curDir += "\\cartesiancoordinates.png";
-            //TaskDialog.Show("revit", curDir);
-            //Uri uriImage = new Uri(@"C:\Users\Public_B\Documents\GitHub\IES_revit_plugin\XYZFamily\cartesiancoordinates.png");
-            Uri uriImage = new Uri(curDir);
+            // Unpacking button image from embedded resources
+            Uri uriImage = new Uri(@"pack://application:,,,/XYZFamily;component/Resources/cartesiancoordinates.png");
 
             BitmapImage largeImage = new BitmapImage(uriImage);
             pushButton.LargeImage = largeImage;
@@ -66,13 +62,13 @@ namespace ExtractXYZ
             {
                 //return (elem.GetType().Equals(typeof(FamilyInstance)));//allow selecting if type = family
                 if (elem.Name == "Low Ceiling")
-                    return elem.Name == "Low Ceiling";
+                    return true;
                 else if (elem.Name == "High Ceiling")
-                    return elem.Name == "High Ceiling";
+                    return true;
                 else if (elem.Name == "Beacon Std.")
                     return true;
                 else
-                    return false; //now only Family1 is allowed to be selected, just or the family names together if we have more types of beacon.           
+                    return false; //now only the Beacon Family is allowed to be selected, just or the family names together if we have more types of beacon.           
             }
 
             bool ISelectionFilter.AllowReference(Reference reference, XYZ position)
@@ -102,7 +98,7 @@ namespace ExtractXYZ
                     }
                     catch
                     {
-                        TaskDialog.Show("Revit", "Error!!!\n");
+                        TaskDialog.Show("Revit", "An error has occurred!\n");
                     }
                 }
             }
