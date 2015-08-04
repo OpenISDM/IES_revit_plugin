@@ -37,8 +37,13 @@ namespace ExtractXYZ
             // a) tool-tip
             pushButton.ToolTip = "Output the beacon's XYZ-coordinates into text file .";
 
+<<<<<<< HEAD
             // b) large bitmap
             // Unpacking button image from embedded resources
+=======
+            // b) large bitmap
+            // Unpacking button image from embedded resources
+>>>>>>> 2c51bcfb7cf054c5af590b2a70231156254890c9
             Uri uriImage = new Uri(@"pack://application:,,,/XYZFamily;component/Resources/cartesiancoordinates.png");
 
             BitmapImage largeImage = new BitmapImage(uriImage);
@@ -68,7 +73,11 @@ namespace ExtractXYZ
                 else if (elem.Name == "Beacon Std.")
                     return true;
                 else
+<<<<<<< HEAD
                     return false; //now only the Beacon Family is allowed to be selected, just or the family names together if we have more types of beacon.           
+=======
+                    return false; //now only Family1 is allowed to be selected, just or the family names together if we have more types of beacon.           
+>>>>>>> 2c51bcfb7cf054c5af590b2a70231156254890c9
             }
 
             bool ISelectionFilter.AllowReference(Reference reference, XYZ position)
