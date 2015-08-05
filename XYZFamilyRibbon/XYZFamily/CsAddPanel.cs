@@ -1,4 +1,25 @@
-﻿using System;
+﻿/*
+License and copyright Statement: to be added
+
+Module Name:
+ Extract XYZ
+
+Abstract:
+This file contains the source code of the Beacon Selection addin for Autodesk Revit 2016.
+The following contains code to select and filter beacons, record the coordinates,
+and publish technical specifications into a .csv file.
+
+Authors:
+Your name (your email address) 15-Oct-2012
+
+Major Revisions:
+ None
+
+Environment:
+ User mode only.
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,14 +44,14 @@ namespace ExtractXYZ
 {
     public class CsAddPanel : IExternalApplication
     {
-       
+
         // Both OnStartup and OnShutdown must be implemented as public method
         public Result OnStartup(UIControlledApplication application)
         {
             // Add a new ribbon panel
             RibbonPanel ribbonPanel = application.CreateRibbonPanel("Extract XYZ");
 
-            // Create a push button to trigger a command add it to the ribbon panel.
+            // Create a push button in panel
             string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
             PushButtonData buttonData = new PushButtonData("cmdYZFamily",
                "Extract XYZ", thisAssemblyPath, "ExtractXYZ.XYZFamily");
@@ -41,8 +62,6 @@ namespace ExtractXYZ
             // a) tool-tip
             pushButton.ToolTip = "Output the beacon's XYZ-coordinates into text file .";
 
-            // b) large bitmap
-            // Unpacking button image from embedded resources
             Uri uriImage = new Uri(@"pack://application:,,,/XYZFamily;component/Resources/cartesiancoordinates.png");
 
             BitmapImage largeImage = new BitmapImage(uriImage);
@@ -64,15 +83,17 @@ namespace ExtractXYZ
         {
             bool ISelectionFilter.AllowElement(Element elem)
             {
-                //return (elem.GetType().Equals(typeof(FamilyInstance)));//allow selecting if type = family
+        // Allow selecting if type Beacon Family
                 if (elem.Name == "Low Ceiling")
-                    return elem.Name == "Low Ceiling";
+                    return true;
                 else if (elem.Name == "High Ceiling")
-                    return elem.Name == "High Ceiling";
+                    return true;
                 else if (elem.Name == "Beacon Std.")
                     return true;
                 else
-                    return false; //now only Family1 is allowed to be selected, just or the family names together if we have more types of beacon.           
+                    return false; 
+        /* Now only the Beacon Family is allowed to be selected       
+        If more beacons types are desired, insert above */
             }
 
             bool ISelectionFilter.AllowReference(Reference reference, XYZ position)
@@ -90,8 +111,14 @@ namespace ExtractXYZ
             Document doc = uidoc.Document;
             FamilyFilter ff = new FamilyFilter();
             IList<Reference> sel = uidoc.Selection.PickObjects(ObjectType.Element, ff);
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\" + doc.Title.Remove(doc.Title.Length - 4) + ".csv";//store the output data on desktop
-            using (StreamWriter sw = new StreamWriter(path, false))//overwrite the original file
+        //store the output data on desktop
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) 
+                + "\\" 
+                + doc.Title.Remove(doc.Title.Length - 4) 
+                + ".csv";
+
+        //Overwrite the original file if action is duplicated
+            using (StreamWriter sw = new StreamWriter(path, false))
             {
                 foreach (Reference r in sel)
                 {
@@ -108,6 +135,7 @@ namespace ExtractXYZ
                     catch (Exception e)
                     {
                         TaskDialog.Show("Revit", e.ToString());
+
                     }
                 }
                 // Create a Multipoint GeoJSON List and then serialize its GeoJSON output
