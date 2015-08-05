@@ -14,6 +14,10 @@ using System.Windows.Media.Imaging;
 using Autodesk.Revit.DB.Architecture;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB.Structure;
+using GeoJSON.Net.Geometry;
+using Newtonsoft.Json;
+using Point = GeoJSON.Net.Geometry.Point;
+using GeoJSON.Net.Converters;
 
 namespace ExtractXYZ
 {
@@ -79,6 +83,9 @@ namespace ExtractXYZ
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
+            // Create a list to hold the beacon coordinate points
+            List<Point> beaconPointList = new List<Point>();
+
             UIDocument uidoc = commandData.Application.ActiveUIDocument;
             Document doc = uidoc.Document;
             FamilyFilter ff = new FamilyFilter();
@@ -93,14 +100,19 @@ namespace ExtractXYZ
                         Element e = doc.GetElement(r);
                         FamilyInstance fi = e as FamilyInstance;
                         LocationPoint lp = fi.Location as LocationPoint;
+
+                        // Create a new beacon and add its coordinates to the point list
                         Beacon beacon = new Beacon(fi, lp);
-                        sw.WriteLine(beacon.toString());
+                        beaconPointList.Add(beacon.BeaconCoordinates);
                     }
-                    catch
+                    catch (Exception e)
                     {
-                        TaskDialog.Show("Revit", "Error!!!\n");
+                        TaskDialog.Show("Revit", e.ToString());
                     }
                 }
+                // Create a Multipoint GeoJSON List and then serialize its GeoJSON output
+                MultiPoint beaconGeoJSONList = new MultiPoint(beaconPointList);
+                sw.WriteLine(JsonConvert.SerializeObject(beaconGeoJSONList));
             }
             return Result.Succeeded;
         }

@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Autodesk.Revit.DB;
+using GeoJSON.Net.Geometry;
+using Point = GeoJSON.Net.Geometry.Point;
+using Newtonsoft.Json;
 
 namespace XYZFamily
 {
@@ -96,6 +99,25 @@ namespace XYZFamily
             {
                 return this.zLoc;
             }
+        }
+
+        /*
+         * Getter for a beacon's coordinates in Point format
+         */ 
+        public Point BeaconCoordinates
+        {
+            get
+            {
+                return new Point(new GeographicPosition(xLoc, yLoc, zLoc));
+            }
+        }
+
+        /*
+         * GeoJSON Representation of a beacon
+         */
+        public String toGeoJSONString()
+        {
+            return JsonConvert.SerializeObject(BeaconCoordinates);
         }
 
         /*
