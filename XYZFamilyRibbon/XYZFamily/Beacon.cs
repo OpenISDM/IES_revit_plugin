@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Autodesk.Revit.DB;
 using GeoJSON.Net.Geometry;
+using GeoJSON.Net.Feature;
 using Point = GeoJSON.Net.Geometry.Point;
 using Newtonsoft.Json;
 
@@ -13,7 +14,7 @@ namespace XYZFamily
     class Beacon
     {
         private String categoryName;
-        private String familyName;
+        private String beaconType;
         private ElementId elementId;
         private double xLoc;
         private double yLoc;
@@ -27,7 +28,7 @@ namespace XYZFamily
         public Beacon(FamilyInstance fi, LocationPoint lp)
         {
             this.categoryName = fi.Category.Name;
-            this.familyName = fi.Name;
+            this.beaconType = fi.Name;
             this.elementId = fi.Id;
             // Stores as feet internally so convert to meters
             this.xLoc = Utilities.feetToMeters(lp.Point.X);
@@ -47,13 +48,13 @@ namespace XYZFamily
         }
 
         /*
-         * Getter for beacon's family name
+         * Getter for beacon's type
          */
-        public String FamilyName
+        public String BeaconType
         {
             get
             {
-                return this.familyName;
+                return this.beaconType;
             }
         }
 
@@ -113,11 +114,16 @@ namespace XYZFamily
         }
 
         /*
-         * GeoJSON Representation of a beacon
+         * GeoJSON Feature Representation of a beacon
          */
-        public String toGeoJSONString()
+        public Feature toGeoJSONFeature()
         {
-            return JsonConvert.SerializeObject(BeaconCoordinates);
+            var properties = new Dictionary<String, object>();
+            properties.Add("Beacon Type", beaconType);
+            properties.Add("Element Id", elementId);
+
+            var feature = new Feature(BeaconCoordinates, properties);
+            return feature;
         }
 
         /*
@@ -125,7 +131,7 @@ namespace XYZFamily
          */ 
         public String toString()
         {
-            return "Category: " + categoryName + ", Family: " + familyName + ",Element Id: " + elementId + ", (" + xLoc + "," + yLoc + "," + zLoc + ")\n";
+            return "Category: " + categoryName + ", Beacon Type: " + beaconType + ",Element Id: " + elementId + ", (" + xLoc + "," + yLoc + "," + zLoc + ")\n";
         }
     }
 }

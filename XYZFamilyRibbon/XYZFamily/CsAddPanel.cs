@@ -39,6 +39,7 @@ using GeoJSON.Net.Geometry;
 using Newtonsoft.Json;
 using Point = GeoJSON.Net.Geometry.Point;
 using GeoJSON.Net.Converters;
+using GeoJSON.Net.Feature;
 
 namespace ExtractXYZ
 {
@@ -104,8 +105,8 @@ namespace ExtractXYZ
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            // Create a list to hold the beacon coordinate points
-            List<Point> beaconPointList = new List<Point>();
+            // Create a new feature collections object, beacons will be represented by features
+            FeatureCollection features = new FeatureCollection();
 
             UIDocument uidoc = commandData.Application.ActiveUIDocument;
             Document doc = uidoc.Document;
@@ -128,9 +129,9 @@ namespace ExtractXYZ
                         FamilyInstance fi = e as FamilyInstance;
                         LocationPoint lp = fi.Location as LocationPoint;
 
-                        // Create a new beacon and add its coordinates to the point list
+                        // Create a new beacon and add it to the feature collection as a feature
                         Beacon beacon = new Beacon(fi, lp);
-                        beaconPointList.Add(beacon.BeaconCoordinates);
+                        features.Features.Add(beacon.toGeoJSONFeature());
                     }
                     catch (Exception e)
                     {
@@ -138,9 +139,8 @@ namespace ExtractXYZ
 
                     }
                 }
-                // Create a Multipoint GeoJSON List and then serialize its GeoJSON output
-                MultiPoint beaconGeoJSONList = new MultiPoint(beaconPointList);
-                sw.WriteLine(JsonConvert.SerializeObject(beaconGeoJSONList));
+                // Convert the features collection to GeoJSON and output to external file
+                sw.WriteLine(JsonConvert.SerializeObject(features));
             }
             return Result.Succeeded;
         }
