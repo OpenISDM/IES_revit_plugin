@@ -50,12 +50,12 @@ namespace ExtractXYZ
         public Result OnStartup(UIControlledApplication application)
         {
             // Add a new ribbon panel
-            RibbonPanel ribbonPanel = application.CreateRibbonPanel("Extract XYZ");
+            RibbonPanel ribbonPanel = application.CreateRibbonPanel("Extract Beacons");
 
             // Create a push button in panel
             string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
             PushButtonData buttonData = new PushButtonData("cmdYZFamily",
-               "Extract XYZ", thisAssemblyPath, "ExtractXYZ.XYZFamily");
+               "Extract Beacons", thisAssemblyPath, "ExtractXYZ.XYZFamily");
 
             PushButton pushButton = ribbonPanel.AddItem(buttonData) as PushButton;
 
@@ -116,7 +116,7 @@ namespace ExtractXYZ
             string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) 
                 + "\\" 
                 + doc.Title.Remove(doc.Title.Length - 4) 
-                + ".csv";
+                + ".json";
 
         //Overwrite the original file if action is duplicated
             using (StreamWriter sw = new StreamWriter(path, false))

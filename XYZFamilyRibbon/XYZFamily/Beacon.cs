@@ -104,12 +104,13 @@ namespace XYZFamily
 
         /*
          * Getter for a beacon's coordinates in Point format
+         * Geographic Position seems to use Y,X,Z format so change accordingly
          */ 
         public Point BeaconCoordinates
         {
             get
             {
-                return new Point(new GeographicPosition(xLoc, yLoc, zLoc));
+                return new Point(new GeographicPosition(yLoc, xLoc, zLoc));
             }
         }
 
