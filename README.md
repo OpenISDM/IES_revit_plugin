@@ -14,7 +14,7 @@ To use the plugin on your own machine with Revit installed, you are going to nee
 1. Help the developer select the right type of beacons for each place,
 2. Experiment with the placements and orientations of the selected beacons,
 3. Visualize and assess the coverage provided by them,
-4. Generate the coordinates and technical specifications of the beacons." 
+4. Generate the coordinates and technical specifications of the beacons."
 
 ## Contributing
 
@@ -23,3 +23,9 @@ To use the plugin on your own machine with Revit installed, you are going to nee
 3. Commit your changes: `git commit -am 'Added some feature'`
 4. Push to branch: `git push origin my-new-feature`
 5. Submit a pull request :D
+
+
+## Troubleshooting
+
+* If Revit got a External Tool Failure - System.IO.FileLoadException
+[Please follow this blog's instruction](https://github.com/OpenISDM/IES_revit_plugin)
