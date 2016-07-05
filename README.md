@@ -28,4 +28,4 @@ To use the plugin on your own machine with Revit installed, you are going to nee
 ## Troubleshooting
 
 * If Revit got a External Tool Failure - System.IO.FileLoadException
-[Please follow this blog's instruction](https://github.com/OpenISDM/IES_revit_plugin)
+[Please follow this blog's instruction](http://thebuildingcoder.typepad.com/blog/2011/10/revit-add-in-file-load-exception.html)
